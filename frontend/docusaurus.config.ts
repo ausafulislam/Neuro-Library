@@ -78,7 +78,7 @@ const config: Config = {
       title: 'Neuro Library',
       logo: {
         alt: 'Neuro Library Logo',
-        src: 'static/img/neuro_library.jpeg',
+        src: 'img/logo.svg',
       },
       items: [
         {
@@ -88,7 +88,7 @@ const config: Config = {
           label: 'Textbook',
         },
         {
-          href: 'https://github.com/your-organization/neuro-library',
+          href: 'https://github.com/ausafulislam/neuro-library',
           label: 'GitHub',
           position: 'right',
         },
