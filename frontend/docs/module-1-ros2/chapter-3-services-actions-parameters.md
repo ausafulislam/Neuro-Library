@@ -409,7 +409,3 @@ In this chapter, we've explored the three main communication patterns in ROS 2: 
 - [ROS 2 Services Documentation](https://docs.ros.org/en/humble/Concepts/About-ROS-2-Services.html)
 - [ROS 2 Actions Documentation](https://docs.ros.org/en/humble/Concepts/About-ROS-2-Actions.html)
 - [ROS 2 Parameters Documentation](https://docs.ros.org/en/humble/Concepts/About-ROS-2-Parameters.html)
-
-## Next Steps
-
-[← Previous Chapter: Nodes and Topics](./chapter-2-nodes-and-topics) | [Next Chapter: URDF Robot Modeling →](./chapter-4-urdf-robot-modeling)

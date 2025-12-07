@@ -1006,7 +1006,3 @@ Navigation and path planning with hardware acceleration leverage NVIDIA's GPU co
 - [Isaac ROS Navigation](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_navigation)
 - [GPU-Accelerated Path Planning](https://arxiv.org/abs/2003.01367)
 - [Motion Planning Algorithms](https://motion.cs.illinois.edu/RoboticSystems/MotionPlanning.html)
-
-## Next Steps
-
-[← Previous Chapter: Hardware-Accelerated VSLAM](./chapter-2-hardware-accelerated-vslam) | [Next Chapter: AI-Powered Perception →](./chapter-4-ai-powered-perception)

@@ -757,7 +757,3 @@ High-fidelity rendering is essential for creating realistic digital twins that c
 - [Unity Rendering Documentation](https://docs.unity3d.com/Manual/Rendering.html)
 - [Physically Based Rendering](https://www.pbr-book.org/)
 - [Synthetic Data for Robotics](https://arxiv.org/abs/1804.06516)
-
-## Next Steps
-
-[← Previous Chapter: Sensor Simulation](./chapter-3-sensor-simulation) | [Next Module: NVIDIA Isaac →](../module-3-nvidia-isaac/chapter-1-isaac-sim-overview)

@@ -313,7 +313,3 @@ In this chapter, we've introduced digital twin simulation using Gazebo and Unity
 - [Unity Robotics Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub)
 - [ROS 2 with Gazebo](https://github.com/ros-simulation/gazebo_ros_pkgs)
 - [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents)
-
-## Next Steps
-
-[← Previous Module: ROS 2](../module-1-ros2/chapter-5-launch-files-package-management) | [Next Chapter: Physics Simulation →](./chapter-2-physics-simulation)

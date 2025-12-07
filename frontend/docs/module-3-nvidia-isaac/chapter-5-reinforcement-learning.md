@@ -1094,7 +1094,3 @@ Reinforcement learning with NVIDIA Isaac provides powerful tools for training ro
 - [Reinforcement Learning in Robotics](https://arxiv.org/abs/2103.13073)
 - [PPO Algorithm](https://arxiv.org/abs/1707.06347)
 - [Sim-to-Real Transfer](https://arxiv.org/abs/2006.12884)
-
-## Next Steps
-
-[← Previous Chapter: AI-Powered Perception](./chapter-4-ai-powered-perception) | [Next Module: VLA & Humanoids →](../module-4-vla-humanoids/chapter-1-humanoid-robot-development)

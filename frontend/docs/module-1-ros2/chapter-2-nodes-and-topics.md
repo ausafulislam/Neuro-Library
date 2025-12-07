@@ -296,7 +296,3 @@ class SensorProcessor(Node):
 - [ROS 2 Node Concepts](https://docs.ros.org/en/humble/Concepts/About-ROS-2-Nodes.html)
 - [ROS 2 Topics and Messages](https://docs.ros.org/en/humble/Concepts/About-ROS-2-Topics.html)
 - [Quality of Service in ROS 2](https://docs.ros.org/en/humble/Concepts/About-Quality-of-Service.html)
-
-## Next Steps
-
-[← Previous Chapter: Introduction to ROS 2](./chapter-1-introduction-to-ros2) | [Next Chapter: Services, Actions, and Parameters →](./chapter-3-services-actions-parameters)

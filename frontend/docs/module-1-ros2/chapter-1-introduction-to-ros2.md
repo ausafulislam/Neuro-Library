@@ -143,7 +143,3 @@ This creates a basic Python package structure with the necessary files for a ROS
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/)
 - [ROS 2 Tutorials](https://docs.ros.org/en/humble/Tutorials.html)
 - [ROS 2 Design](https://design.ros2.org/)
-
-## Next Steps
-
-[Next Chapter: Nodes and Topics →](./chapter-2-nodes-and-topics)

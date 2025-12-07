@@ -393,7 +393,3 @@ Physics simulation is fundamental to creating realistic digital twins for roboti
 - [Unity Physics Manual](https://docs.unity3d.com/Manual/PhysicsSection.html)
 - [ROS 2 Gazebo Integration](https://github.com/ros-simulation/gazebo_ros_pkgs)
 - [Physics-Based Robot Simulation](https://arxiv.org/abs/2008.12528)
-
-## Next Steps
-
-[← Previous Chapter: Introduction to Gazebo and Unity](./chapter-1-introduction-gazebo-unity) | [Next Chapter: Sensor Simulation →](./chapter-3-sensor-simulation)

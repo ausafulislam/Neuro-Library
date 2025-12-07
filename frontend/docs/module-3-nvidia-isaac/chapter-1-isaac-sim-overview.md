@@ -434,7 +434,3 @@ Isaac Sim provides a powerful platform for hardware-accelerated robotics simulat
 - [NVIDIA Isaac ROS](https://github.com/NVIDIA-ISAAC-ROS)
 - [Omniverse Platform](https://developer.nvidia.com/omniverse)
 - [PhysX Documentation](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/Introduction.html)
-
-## Next Steps
-
-[← Previous Module: Digital Twin](../module-2-digital-twin/chapter-4-high-fidelity-rendering) | [Next Chapter: Hardware-Accelerated VSLAM →](./chapter-2-hardware-accelerated-vslam)

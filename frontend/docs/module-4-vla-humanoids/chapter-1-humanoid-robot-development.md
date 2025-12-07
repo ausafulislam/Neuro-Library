@@ -266,6 +266,3 @@ This chapter provided a comprehensive overview of humanoid robot development, co
 
 The next chapters will build on these fundamentals to explore specific aspects of humanoid robot functionality, including manipulation, human interaction, and conversational capabilities.
 
-## Next Steps
-
-[← Previous Module: NVIDIA Isaac](../module-3-nvidia-isaac/chapter-5-reinforcement-learning) | [Next Chapter: Manipulation and Grasping →](./chapter-2-manipulation-grasping)

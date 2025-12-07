@@ -398,7 +398,3 @@ In this chapter, we've explored URDF (Unified Robot Description Format), which i
 - [Xacro Documentation](http://wiki.ros.org/xacro)
 - [Robot State Publisher](http://wiki.ros.org/robot_state_publisher)
 - [TF2 Documentation](http://wiki.ros.org/tf2)
-
-## Next Steps
-
-[← Previous Chapter: Services, Actions, and Parameters](./chapter-3-services-actions-parameters) | [Next Chapter: Launch Files and Package Management →](./chapter-5-launch-files-package-management)

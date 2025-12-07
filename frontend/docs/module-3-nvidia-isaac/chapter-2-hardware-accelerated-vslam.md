@@ -606,7 +606,3 @@ Hardware-accelerated VSLAM leverages NVIDIA's GPU computing capabilities to achi
 - [NVIDIA CUDA Documentation](https://docs.nvidia.com/cuda/)
 - [TensorRT Documentation](https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html)
 - [Visual SLAM Survey](https://arxiv.org/abs/1606.05830)
-
-## Next Steps
-
-[← Previous Chapter: Isaac Sim Overview](./chapter-1-isaac-sim-overview) | [Next Chapter: Navigation and Path Planning →](./chapter-3-navigation-path-planning)

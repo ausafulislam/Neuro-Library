@@ -531,7 +531,3 @@ Sensor simulation is a critical component of realistic digital twins for robotic
 - [ROS 2 Sensor Message Types](https://docs.ros.org/en/humble/Releases/Release-Humble-Hawksbill.html#sensor-msgs)
 - [Unity Robotics Sensors](https://github.com/Unity-Technologies/Unity-Robotics-Hub/blob/main/tutorials/sensor_sim_unity/)
 - [Sensor Simulation in Robotics](https://ieeexplore.ieee.org/document/8953841)
-
-## Next Steps
-
-[← Previous Chapter: Physics Simulation](./chapter-2-physics-simulation) | [Next Chapter: High-Fidelity Rendering →](./chapter-4-high-fidelity-rendering)

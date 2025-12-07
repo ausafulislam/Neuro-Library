@@ -18,7 +18,7 @@ const config: Config = {
   url: 'https://your-organization.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/neuro-library/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -78,7 +78,7 @@ const config: Config = {
       title: 'Neuro Library',
       logo: {
         alt: 'Neuro Library Logo',
-        src: 'img/logo.svg',
+        src: 'static/img/neuro_library.jpeg',
       },
       items: [
         {

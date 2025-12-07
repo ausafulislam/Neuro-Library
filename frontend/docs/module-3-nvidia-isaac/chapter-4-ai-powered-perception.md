@@ -1175,7 +1175,3 @@ AI-powered perception systems leverage deep learning and GPU acceleration to ena
 - [TensorRT Documentation](https://docs.nvidia.com/deeplearning/tensorrt/developer-guide/index.html)
 - [Deep Learning for Robotics](https://arxiv.org/abs/2008.09588)
 - [Real-Time Object Detection](https://arxiv.org/abs/2006.00393)
-
-## Next Steps
-
-[← Previous Chapter: Navigation and Path Planning](./chapter-3-navigation-path-planning) | [Next Chapter: Reinforcement Learning →](./chapter-5-reinforcement-learning)

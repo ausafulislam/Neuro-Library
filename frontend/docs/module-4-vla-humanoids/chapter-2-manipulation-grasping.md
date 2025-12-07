@@ -287,7 +287,3 @@ For humanoid manipulation with ROS 2:
 This chapter explored the complex field of robotic manipulation and grasping, focusing on applications for humanoid robots. We covered fundamental concepts including grasp types, hand design, grasp planning, and dexterous manipulation techniques. The integration of perception and action systems enables humanoid robots to interact effectively with their environment, though significant challenges remain in achieving human-level dexterity and adaptability.
 
 The next chapter will focus on human-robot interaction, building on these manipulation capabilities to enable effective collaboration between humans and humanoid robots.
-
-## Next Steps
-
-[← Previous Chapter: Humanoid Robot Development](./chapter-1-humanoid-robot-development) | [Next Chapter: Human-Robot Interaction →](./chapter-3-human-robot-interaction)

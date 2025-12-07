@@ -481,7 +481,3 @@ In this chapter, we've covered ROS 2 package management and launch files, which 
 - [ROS 2 Launch Documentation](https://docs.ros.org/en/humble/How-To-Guides/Launch-system.html)
 - [Colcon Build System](https://colcon.readthedocs.io/en/released/)
 - [ROS 2 Parameter System](https://docs.ros.org/en/humble/How-To-Guides/Using-Parameters-in-a-classic-ROS2-node.html)
-
-## Next Steps
-
-[← Previous Chapter: URDF Robot Modeling](./chapter-4-urdf-robot-modeling) | [Next Module: Digital Twin →](../module-2-digital-twin/chapter-1-introduction-gazebo-unity)
