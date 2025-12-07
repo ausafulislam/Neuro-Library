@@ -15,7 +15,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   // Neuro Library Textbook sidebar structure
   textbookSidebar: [
-    'intro',
+    'introduction',
     {
       type: 'category',
       label: 'Module 1: ROS 2 (Weeks 3-5)',
