@@ -4,18 +4,90 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding: 6rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg,
+    var(--polar-night-deep) 0%,
+    var(--polar-night-charcoal) 100%);
+  color: var(--polar-night-white);
+  margin-bottom: 2rem;
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 4rem 1rem;
   }
 }
 
+.heroBanner h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, var(--polar-night-light), var(--polar-night-white));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.heroBanner p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--polar-night-light);
+}
+
+.hero__description {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttons .button {
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.buttons .button--secondary {
+  background-color: var(--polar-night-white);
+  color: var(--polar-night-deep);
+}
+
+.buttons .button--secondary:hover {
+  background-color: var(--polar-night-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.buttons .button--primary {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.buttons .button--primary:hover {
+  background-color: var(--ifm-color-primary-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 31, 63, 0.3);
+}
 
 .features {
   padding: 4rem 0;
@@ -34,6 +106,7 @@
   padding: 1.5rem;
   height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .card:hover {
@@ -44,7 +117,7 @@
 .card h3 {
   color: var(--ifm-color-primary);
   margin-bottom: 1rem;
-
+  font-weight: 600;
 }
 
 .card ul {
@@ -69,7 +142,6 @@
 }
 
 .moduleCard {
-  
   margin-bottom: 2rem;
 }
 
@@ -82,4 +154,37 @@
   background-color: var(--ifm-color-emphasis-100);
   padding: 1.5rem;
   border-radius: var(--ifm-global-radius);
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .heroBanner {
+  background: linear-gradient(135deg,
+    var(--ifm-background-surface-color) 0%,
+    var(--ifm-background-color) 100%);
+}
+
+[data-theme="dark"] .heroBanner h1 {
+  background: linear-gradient(to right, var(--ifm-color-primary-light), var(--ifm-color-primary-lighter));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .heroBanner p,
+[data-theme="dark"] .hero__description {
+  color: var(--ifm-font-color-secondary);
+}
+
+[data-theme="dark"] .buttons .button--secondary {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+[data-theme="dark"] .buttons .button--secondary:hover {
+  background-color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme="dark"] .card {
+  border: 1px solid var(--ifm-color-emphasis-300);
 }

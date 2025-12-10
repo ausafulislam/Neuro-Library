@@ -15,14 +15,14 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-organization.github.io',
+  url: 'https://neurolibrary.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'your-organization', // Usually your GitHub org/user name.
+  organizationName: 'ausafulislam', // Usually your GitHub org/user name.
   projectName: 'neuro-library', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -62,9 +62,30 @@ const config: Config = {
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            './src/css/global-styles.css',
+          ],
         },
       } satisfies Preset.Options,
+    ],
+  ],
+
+  plugins: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // Options for the plugin
+        hashed: true,
+        indexDocs: true,
+        indexBlog: true,
+        indexPages: true,
+        language: ["en"],
+        docsRouteBasePath: ['docs'], 
+        explicitSearchResultPath: true,
+        searchResultLimits: 8,
+        searchResultContextMaxLength: 50,
+      },
     ],
   ],
 
@@ -86,6 +107,10 @@ const config: Config = {
           sidebarId: 'textbookSidebar',
           position: 'left',
           label: 'Textbook',
+        },
+        {
+          type: 'search',
+          position: 'right',
         },
         {
           href: 'https://github.com/ausafulislam/neuro-library',

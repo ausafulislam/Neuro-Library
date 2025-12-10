@@ -25,11 +25,11 @@ function HomepageHeader() {
             to="/docs/introduction">
             Start Learning →
           </Link>
-          {/* <Link
+          <Link
             className="button button--primary button--lg"
             to="/docs/hardware-requirements">
             Hardware Requirements
-          </Link> */}
+          </Link>
         </div>
       </div>
     </header>
