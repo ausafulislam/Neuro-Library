@@ -1,0 +1,120 @@
+/* Card Styles - Light Theme */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(13, 14, 16, 0.05);
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 8px 25px rgba(13, 14, 16, 0.15);
+  transform: translateY(-5px);
+  border-color: var(--btn-primary);
+}
+
+.card__header {
+  background-color: var(--bg-secondary);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card__header:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.card__body {
+  padding: 20px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.card__footer {
+  padding: 16px 20px;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+}
+
+.card__footer:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.card__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card__title {
+  color: var(--heading-main);
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.card__subtitle {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 4px 0 0 0;
+}
+
+/* Horizontal card variant */
+.card--horizontal {
+  display: flex;
+}
+
+.card--horizontal .card__image {
+  width: 30%;
+  border-bottom: none;
+  border-right: 1px solid var(--border-light);
+}
+
+.card--horizontal .card__body {
+  width: 70%;
+}
+
+/* Featured card */
+.card--featured {
+  border: 2px solid var(--btn-primary);
+  box-shadow: 0 8px 25px rgba(13, 14, 16, 0.2);
+}
+
+/* Card with action */
+.card--action:hover {
+  cursor: pointer;
+}
+
+
+/* Card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Responsive card */
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card--horizontal {
+    flex-direction: column;
+  }
+  
+  .card--horizontal .card__image {
+    width: 100%;
+    border-bottom: 1px solid var(--border-light);
+    border-right: none;
+  }
+  
+  .card--horizontal .card__body {
+    width: 100%;
+  }
+}

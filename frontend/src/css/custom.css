@@ -1,86 +1,57 @@
 /* You can override the default Infima variables here. */
-/* Polar Night Palette: Deep Navy with Sophisticated Grays - Bold & Elegant */
+/* Black and White Palette */
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+/* Import section-specific styles */
+@import "./navbar-styles.css";
+@import "./footer-styles.css";
+@import "./button-styles.css";
+@import "./card-styles.css";
+@import "./typography-styles.css";
+@import "./form-styles.css";
+@import "./layout-styles.css";
+@import "./scrollbar-styles.css";
+
+:root {
+  /* Primary Brand Scale */
+  --primary-light: #f8fafa; /* Seasalt */
+  --primary: #c5c6c8; /* Silver */
+  --primary-dark: #818283; /* Gray */
+
+  /* Secondary Neutral Scale */
+  --secondary-light: #4f5052; /* Davy's gray */
+  --secondary: #282728; /* Raisin black */
+  --secondary-dark: #0d0e10; /* Night */
+
+  /* Text Colors */
+  --text-primary: #0d0e10; /* Night */
+  --text-secondary: #4f5052; /* Davy's gray */
+  --text-muted: #818283; /* Gray */
+
+  /* Background Colors */
+  --bg-primary: #f8fafa; /* Seasalt */
+  --bg-secondary: #c5c6c8; /* Silver */
+  --bg-dark: #0d0e10; /* Night */
+
+  /* Border Colors */
+  --border-light: #c5c6c8; /* Silver */
+  --border-dark: #4f5052; /* Davy's gray */
+
+  /* Buttons */
+  --btn-primary: #282728; /* Raisin black */
+  --btn-primary-hover: #0d0e10; /* Night */
+
+  --btn-secondary: #c5c6c8; /* Silver */
+  --btn-secondary-hover: #818283; /* Gray */
+
+  /* Headings */
+  --heading-main: #0d0e10; /* Night */
+  --heading-sub: #4f5052; /* Davy's gray */
+}
+
 html {
   font-family: "Poppins", sans-serif;
-}
-:root {
-  /* Polar Night Primary Colors */
-  --polar-night-deep: #001f3f;
-  /* Deep Navy */
-  --polar-night-charcoal: #111111;
-  /* Dark Charcoal */
-  --polar-night-gray: #aaaaaa;
-  /* Medium Gray */
-  --polar-night-light: #dddddd;
-  /* Light Gray */
-  --polar-night-white: #ffffff;
-  /* Pure White */
-
-  /* Infima Color Mapping */
-  --ifm-color-primary: #001f3f;
-  --ifm-color-primary-dark: #001830;
-  --ifm-color-primary-darker: #001528;
-  --ifm-color-primary-darkest: #000f1f;
-  --ifm-color-primary-light: #002952;
-  --ifm-color-primary-lighter: #003366;
-  --ifm-color-primary-lightest: #004080;
-
-  /* NAVBAR - SOLID backgrounds, no transparency */
-  --ifm-navbar-background-color: #ffffff;
-  --ifm-navbar-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --ifm-heading-font-weight: 600;
-  --ifm-font-family-base: "Inter", -apple-system, BlinkMacSystemFont,
-    "SF Pro Display", "Segoe UI", system-ui, sans-serif;
-  --font-family-serif: "Merriweather", Georgia, "Times New Roman", serif;
-  --ifm-font-family-monospace: "JetBrains Mono", "SF Mono", Monaco, Consolas,
-    "Courier New", monospace;
-}
-
-/* ============================================================================
-   DARK MODE - "Midnight Scholar" Theme
-   Optimized for extended reading with warm undertones and soft blue accents
-   ============================================================================ */
-[data-theme="dark"] {
-  /* Primary colors - Soft blue for links and accents (maintains brand connection) */
-  --ifm-color-primary: #60a5fa;
-  --ifm-color-primary-dark: #3b82f6;
-  --ifm-color-primary-darker: #2563eb;
-  --ifm-color-primary-darkest: #1d4ed8;
-  --ifm-color-primary-light: #93c5fd;
-  --ifm-color-primary-lighter: #bfdbfe;
-  --ifm-color-primary-lightest: #dbeafe;
-
-  /* NAVBAR - Obsidian Glass: near-black with zinc undertone */
-  --ifm-navbar-background-color: #18181b;
-  --ifm-navbar-shadow: 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 4px 20px rgba(0, 0, 0, 0.4);
-
-  /* Backgrounds - Warm off-blacks for reduced eye strain */
-  --ifm-background-color: #0f0f12;
-  --ifm-background-surface-color: #1a1a1f;
-  --docusaurus-highlighted-code-line-bg: rgba(96, 165, 250, 0.1);
-
-  /* Text colors - Softer whites for comfortable reading */
-  --ifm-font-color-base: #e2e8f0;
-  --ifm-font-color-secondary: #94a3b8;
-  --ifm-heading-color: #f1f5f9;
-
-  /* Accent colors for CTAs and highlights */
-  --midnight-accent-amber: #f59e0b;
-  --midnight-accent-amber-hover: #d97706;
-  --midnight-accent-glow: rgba(245, 158, 11, 0.15);
-
-  /* Borders and dividers */
-  --ifm-color-emphasis-200: rgba(148, 163, 184, 0.15);
-  --ifm-color-emphasis-300: rgba(148, 163, 184, 0.25);
-
-  /* Card/surface shadows */
-  --midnight-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --midnight-card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.5);
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
 }

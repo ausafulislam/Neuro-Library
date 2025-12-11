@@ -1,0 +1,147 @@
+/* Button Styles - Light Theme */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Primary Button */
+.button--primary {
+  background-color: var(--btn-primary);
+  border: 1px solid var(--btn-primary);
+  color: var(--bg-primary);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button--primary:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 14, 16, 0.2);
+}
+
+.button--primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button */
+.button--secondary {
+  background-color: transparent;
+  border: 1px solid var(--btn-secondary);
+  color: var(--btn-secondary);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button--secondary:hover {
+  background-color: var(--btn-secondary);
+  color: var(--heading-main);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 14, 16, 0.2);
+}
+
+.button--secondary:active {
+  transform: translateY(0);
+}
+
+/* Outline Button */
+.button--outline {
+  background-color: transparent;
+  border: 1px solid var(--btn-primary);
+  color: var(--btn-primary);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button--outline:hover {
+  background-color: var(--btn-primary);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 14, 16, 0.2);
+}
+
+.button--outline:active {
+  transform: translateY(0);
+}
+
+/* Small Button */
+.button--sm {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
+/* Large Button */
+.button--lg {
+  padding: 12px 24px;
+  font-size: 1.125rem;
+}
+
+/* Disabled Button */
+.button--disabled,
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Link Styled as Button */
+.button {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Custom button classes */
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--btn-primary);
+  border-color: var(--btn-primary);
+  color: var(--bg-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+  color: var(--bg-primary);
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: var(--btn-primary);
+  color: var(--btn-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--btn-primary);
+  border-color: var(--btn-primary);
+  color: var(--bg-primary);
+}
