@@ -10,7 +10,7 @@
 @import "./card-styles.css";
 @import "./typography-styles.css";
 @import "./form-styles.css";
-@import "../Components/SearchBar/index.module.css";
+@import "../components/SearchBar/index.module.css";
 
 :root {
   /* Primary Brand Scale */
