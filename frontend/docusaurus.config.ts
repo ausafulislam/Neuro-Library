@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -59,10 +59,9 @@ const config: Config = {
         // Options for the plugin
         hashed: true,
         indexDocs: true,
-        indexBlog: true,
         indexPages: true,
         language: ["en"],
-        docsRouteBasePath: ['docs'], 
+        docsRouteBasePath: ['docs'],
         explicitSearchResultPath: true,
         searchResultLimits: 8,
         searchResultContextMaxLength: 50,
@@ -82,7 +81,7 @@ const config: Config = {
       title: 'Neuro Library',
       logo: {
         alt: 'Neuro Library Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {

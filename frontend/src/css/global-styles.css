@@ -70,20 +70,46 @@ h6 {
   border: 1px solid var(--border-light);
 }
 
-/* Enhanced table styling */
+/* Wrap table in a scroll container */
 table {
+  padding: 2px;              
+  width: 100%;
+  border-collapse: collapse;
   border-radius: 8px;
   overflow: hidden;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-light);
+  display: block;          /* allows scrolling */
+  overflow-x: auto;        /* horizontal scroll when needed */
+  margin: 1rem 0;
 }
 
+/* Table header & cells */
 th,
 td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border-light);
+  border: 2px solid var(--border-dark);
   color: var(--text-primary);
+  white-space: nowrap;     /* prevent text from breaking weirdly */
 }
+
+/* Header styling */
+th {
+  background-color: var(--bg-secondary);
+  font-weight: 600;
+}
+
+/* Row hover effect */
+tr:hover td {
+  background-color: var(--bg-secondary);
+}
+
+/* Make table look nice on mobile */
+@media (max-width: 600px) {
+  th,
+  td {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
 
 /* Enhanced navigation sidebar */
 .menu__list-item {
@@ -98,47 +124,26 @@ td {
   color: var(--text-primary);
 }
 
+
 .menu__link:hover {
   background-color: var(--bg-secondary);
   color: var(--btn-primary);
+  text-decoration: none;
+  border-left: 3px solid var(--border-dark);
 }
 
 .menu__link--active {
-  background-color: var(--btn-secondary);
+  background-color: var(--bg-secondary);
   font-weight: 600;
   color: var(--btn-primary);
+  border-left: 3px solid var(--border-dark);
 }
+
 
 /* Footer styling */
 .footer {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  border-top: 1px solid var(--border-light);
-}
-
-/* Footer links */
-.footer__link-item {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.footer__link-item:hover {
-  color: var(--btn-primary);
-}
-
-/* Search bar enhancement */
-.navbar__search-input {
-  border-radius: 6px;
-  border: 1px solid var(--border-light);
-  padding: 8px 12px;
-  transition: all 0.3s ease;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-.navbar__search-input:focus {
-  border-color: var(--btn-primary);
-  box-shadow: 0 0 0 2px rgba(13, 14, 16, 0.2); /* Only for light mode */
 }
 
 /* Enhanced doc paginator */
@@ -155,14 +160,29 @@ td {
 }
 
 /* Table of Contents sidebar */
+
 .table-of-contents__link {
-  transition: all 0.2s ease;
+  padding: 2px 0 2px 8px;
+  border-left: 1px solid var(--border-light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
+
 }
 
 .table-of-contents__link:hover {
   color: var(--btn-primary);
   padding-left: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(13, 14, 16, 0.15);
+}
+
+.table-of-contents__link--active {
+  background-color: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--btn-primary);
+  border-left: 3px solid var(--border-dark);
 }
 
 /* Ensure all images are in black and white */

@@ -62,28 +62,19 @@ async function loadSearchIndex(): Promise<any> {
     }
 
     try {
+        // Attempt to get the correct base URL from Docusaurus settings
+        // The search index is typically at the baseUrl root
         const baseUrl = window.location.origin;
-        const pathname = window.location.pathname;
+        const currentPath = window.location.pathname;
 
-        // Detect base path (e.g., /ai-native/)
-        // Check if we're in a subpath by looking at the first segment
-        let basePath = '/';
-        const pathSegments = pathname.split('/').filter(Boolean);
-
-        // If first segment is NOT a known Docusaurus route, it's likely the basePath
-        if (pathSegments.length > 0) {
-            const firstSegment = pathSegments[0];
-            const knownRoutes = ['docs', 'blog', 'search', 'auth', 'api', 'code'];
-            if (!knownRoutes.includes(firstSegment)) {
-                basePath = `/${firstSegment}`;
-            }
-        }
+        // Determine the correct path for the search index
+        // In Docusaurus, it's usually at baseUrl/search-index.json
+        let searchIndexPath = '/search-index.json';
 
         // Try different possible paths for the search index
-        // The plugin puts search-index.json at the root of the build output
         const possiblePaths = [
-            `${baseUrl}${basePath}/search-index.json`,
-            `${baseUrl}/search-index.json`,
+            searchIndexPath,  // Relative path
+            `${baseUrl}${searchIndexPath}`,  // Absolute path
         ];
 
         for (const path of possiblePaths) {
@@ -91,7 +82,9 @@ async function loadSearchIndex(): Promise<any> {
                 const response = await fetch(path, {
                     headers: {
                         Accept: 'application/json',
+                        'Content-Type': 'application/json',
                     },
+                    mode: 'cors'
                 });
 
                 if (response.ok) {
@@ -104,12 +97,13 @@ async function loadSearchIndex(): Promise<any> {
                     }
                 }
             } catch (e) {
-                // Silently continue to next path
+                // Continue to next path if this one fails
                 continue;
             }
         }
 
         // If no index found, return null
+        // This is expected in development mode
         return null;
     } catch (error) {
         // Silently fail - search will be disabled
@@ -129,7 +123,7 @@ export async function searchContent(query: string): Promise<SearchResult[]> {
     const index = await loadSearchIndex();
     if (!index) {
         // In dev mode, search index is not available (only generated during build)
-        // Return empty results silently
+        // Return empty results silently - this is expected behavior
         return [];
     }
 
@@ -219,7 +213,7 @@ export async function searchContent(query: string): Promise<SearchResult[]> {
                 results.sort((a: any, b: any) => (b.score || 0) - (a.score || 0));
                 return results.slice(0, 8);
             } catch (error) {
-                // Lunr search failed, fall back to simple search
+                console.warn('Lunr search failed, falling back to simple search:', error);
             }
         }
     }

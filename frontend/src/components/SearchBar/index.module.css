@@ -1,0 +1,628 @@
+/* ============================================================================
+   SEARCH BAR - Enhanced Light Theme Design
+   Modern search interface with improved UX and visual hierarchy
+   ============================================================================ */
+
+.searchContainer {
+  position: relative;
+  margin-right: 1.5rem; /* Spacing before auth buttons */
+}
+
+/* Search Trigger Button */
+.searchTrigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 50px; /* Pill-shaped */
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.searchTrigger:hover {
+  background: var(--bg-primary);
+  border-color: var(--border-medium);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.searchTrigger:focus-visible {
+  outline: 2px solid var(--btn-primary);
+  outline-offset: 2px;
+}
+
+.searchIcon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.searchTrigger:hover .searchIcon {
+  stroke: var(--btn-primary);
+}
+
+.searchLabel {
+  color: var(--text-secondary);
+  font-weight: 400;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.searchTrigger:hover .searchLabel {
+  color: var(--text-primary);
+}
+
+.searchShortcut {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  padding: 2px 6px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.kbdKey {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Search Overlay - Full screen, covers everything including navbar */
+.searchOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(13, 14, 16, 0.92); /* Slightly more opaque */
+  backdrop-filter: blur(12px); /* Increased blur */
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Search Modal */
+.searchModal {
+  width: 100%;
+  max-width: 720px; /* Wider to accommodate more content */
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 16px; /* More rounded */
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  animation: slideDown 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  transform-origin: top center;
+  backdrop-filter: blur(10px);
+}
+
+.searchModal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px; /* Thicker accent line */
+  background: linear-gradient(90deg,
+    var(--btn-primary) 0%,
+    var(--btn-secondary) 100%);
+  z-index: 1;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Search Input Wrapper */
+.searchInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Reduced spacing */
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-primary);
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.searchInputIcon {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  transition: color 0.2s ease;
+}
+
+.searchInputWrapper:focus-within .searchInputIcon {
+  color: var(--btn-primary);
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  padding: 0.5rem 0;
+  min-width: 0; /* Allow flex to shrink */
+}
+
+.searchInput:focus {
+  caret-color: var(--btn-primary);
+}
+
+.searchInput::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.clearButton:hover {
+  background: var(--btn-primary);
+  border-color: var(--btn-primary);
+  color: var(--bg-primary);
+  opacity: 1;
+}
+
+/* Ensure input is properly visible */
+.searchInputWrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  background: var(--btn-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  border-radius: 2px;
+}
+
+.searchInputWrapper:focus-within::after {
+  transform: scaleX(1);
+}
+
+/* Search Results */
+.searchResults {
+  max-height: 65vh; /* Higher to show more results */
+  overflow-y: auto;
+  padding: 0.75rem 0;
+}
+
+.searchResults::-webkit-scrollbar {
+  width: 10px; /* Wider scrollbar */
+}
+
+.searchResults::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 5px;
+}
+
+.searchResults::-webkit-scrollbar-thumb {
+  background: var(--border-medium); /* Softer color */
+  border-radius: 5px;
+}
+
+.searchResults::-webkit-scrollbar-thumb:hover {
+  background: var(--btn-primary);
+}
+
+.searchResultsHeader {
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-tertiary, var(--bg-secondary));
+}
+
+.resultsCount {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 600;
+}
+
+.resultsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.resultItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.75rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-lighter, var(--border-light));
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border-radius: 0 0 8px 8px; /* Subtle border radius at bottom */
+}
+
+.resultItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px; /* Thicker accent line */
+  background: var(--btn-primary);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.resultItem:hover,
+.resultItem.resultItemSelected {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--btn-primary);
+  padding-left: 2rem;
+  transform: translateX(2px);
+}
+
+.resultItem:hover::before,
+.resultItem.resultItemSelected::before {
+  opacity: 1;
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.resultTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--heading-main);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.4;
+}
+
+.resultType {
+  font-size: 0.65rem;
+  color: var(--heading-main);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px; /* More rounded */
+  flex-shrink: 0;
+  font-weight: 600;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.resultSnippet {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.resultPath {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  font-family: monospace;
+  margin-top: 0.25rem;
+}
+
+/* Loading State */
+.searchLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.loadingSpinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--btn-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empty State */
+.searchEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.searchEmpty svg {
+  color: var(--text-muted);
+  opacity: 0.5;
+  width: 56px;
+  height: 56px;
+}
+
+.searchEmpty p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.searchEmptyHint {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+/* Search Suggestions and Recent Searches */
+.searchSuggestions {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.recentSearchesSection {
+  margin-bottom: 1.5rem;
+}
+
+.suggestionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.suggestionsTitle {
+  font-size: 0.9rem;
+  color: var(--heading-main);
+  margin: 0;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Search Unavailable Message */
+.searchUnavailableMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.unavailableIcon {
+  color: var(--text-muted);
+  opacity: 0.5;
+  width: 40px;
+  height: 40px;
+}
+
+.unavailableText {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--text-secondary);
+  max-width: 300px;
+}
+
+.clearHistoryBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.clearHistoryBtn:hover {
+  background: var(--bg-secondary);
+  color: var(--btn-primary);
+}
+
+.recentSearchesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recentSearchItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-lighter, var(--border-light));
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+}
+
+.recentSearchItem:hover {
+  background: var(--btn-secondary);
+  border-color: var(--btn-primary);
+  transform: translateX(3px);
+}
+
+.historyIcon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.searchTips {
+  margin-top: 0.5rem;
+}
+
+.tipsGroup {
+  margin-bottom: 1rem;
+}
+
+.tipsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tipItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.tipBullet {
+  color: var(--btn-primary);
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-top: -0.1rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 996px) {
+  .searchContainer {
+    margin-right: 0.75rem; /* Mobile spacing before auth buttons */
+  }
+
+  .searchTrigger {
+    padding: 0.4rem;
+    min-height: auto;
+    min-width: auto;
+    border-radius: 6px;
+  }
+
+  .searchIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .searchLabel,
+  .searchShortcut {
+    display: none;
+  }
+
+  .searchModal {
+    max-width: calc(100% - 1.5rem);
+    margin: 0 0.75rem;
+    max-height: 85vh;
+  }
+
+  .searchOverlay {
+    padding-top: 10vh;
+  }
+
+  .searchInputWrapper {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .searchInput {
+    font-size: 1rem;
+  }
+
+  .searchResults {
+    max-height: 70vh;
+  }
+
+  .searchSuggestions {
+    padding: 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .resultItem {
+    padding: 1rem 1.25rem;
+  }
+}

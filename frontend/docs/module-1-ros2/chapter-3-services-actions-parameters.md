@@ -333,7 +333,7 @@ def generate_launch_description():
 ### Topics vs Services vs Actions
 
 | Pattern | Use Case | Characteristics |
-|---------|----------|-----------------|
+|---------|----------|---------------- |
 | Topics | Continuous data streams | Asynchronous, many-to-many |
 | Services | Request-response | Synchronous, blocking |
 | Actions | Long-running tasks | Goal-feedback-result |

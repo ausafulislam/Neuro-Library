@@ -101,17 +101,12 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: User can access any chapter and find all required elements (learning objectives, theory, examples, code, exercises).
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
-
-- [ ] T018 [P] [US2] Create content validation test for chapter structure in tests/unit/content-validation.test.js
-- [ ] T019 [P] [US2] Create accessibility compliance test in tests/unit/accessibility.test.js
-
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create module 1 structure (ROS 2) in docs/module-1-ros2/
-- [ ] T021 [P] [US2] Create module 2 structure (Digital Twin) in docs/module-2-digital-twin/
-- [ ] T022 [P] [US2] Create module 3 structure (NVIDIA Isaac) in docs/module-3-nvidia-isaac/
-- [ ] T023 [P] [US2] Create module 4 structure (VLA & Humanoids) in docs/module-4-vla-humanoids/
+- [x] T020 [US2] Create module 1 structure (ROS 2) in docs/module-1-ros2/
+- [x] T021 [US2] Create module 2 structure (Digital Twin) in docs/module-2-digital-twin/
+- [x] T022 [US2] Create module 3 structure (NVIDIA Isaac) in docs/module-3-nvidia-isaac/
+- [x] T023 [US2] Create module 4 structure (VLA & Humanoids) in docs/module-4-vla-humanoids/
 - [x] T024 [US2] Create chapter 1 content for ROS 2 in docs/module-1-ros2/chapter-1-introduction-to-ros2.md
 - [x] T025 [US2] Create chapter 2 content for ROS 2 in docs/module-1-ros2/chapter-2-nodes-and-topics.md
 - [x] T026 [US2] Create chapter 3 content for ROS 2 in docs/module-1-ros2/chapter-3-services-actions-parameters.md
