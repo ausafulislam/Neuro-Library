@@ -1,0 +1,143 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.bookOverview {
+  padding: 4rem 0;
+  background-color: var(--bg-primary);
+  text-align: center;
+}
+
+.bookHeader {
+  margin-bottom: 2rem;
+}
+
+.bookIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.bookTitle {
+  font-size: 2.5rem;
+  color: var(--heading-main);
+  margin-bottom: 1rem;
+}
+
+.bookDescription {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--heading-main);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.bookModules {
+  padding: 4rem 0;
+  background-color: var(--bg-primary);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--bg-primary);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: 0 4px 6px rgba(13, 14, 16, 0.05);
+  padding: 1.5rem;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-light);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(13, 14, 16, 0.15);
+}
+
+.card h3 {
+  color: var(--btn-primary);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.moduleList {
+  padding-left: 1.2rem;
+  margin-bottom: 0;
+}
+
+.moduleList li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  list-style-type: disc;
+}
+
+.moduleList li:last-child {
+  margin-bottom: 0;
+}
+
+.moduleCard {
+  margin-bottom: 2rem;
+}
+
+.button--primary {
+  background-color: var(--btn-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--btn-primary);
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.button--primary:hover {
+  background-color: var(--btn-primary-hover);
+  border-color: var(--btn-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 14, 16, 0.3);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 996px) {
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .bookTitle {
+    font-size: 2rem;
+  }
+
+  .col--6 {
+    flex: 1 0 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bookOverview {
+    padding: 2rem 0;
+  }
+
+  .bookTitle {
+    font-size: 1.8rem;
+  }
+
+  .bookIcon {
+    font-size: 3rem;
+  }
+}

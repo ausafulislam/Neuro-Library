@@ -8,27 +8,21 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          {siteConfig.title}
+          Neuro Library
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className="hero__subtitle">AI-Native Technical Books for the Future</p>
         <p className="hero__description">
-          A comprehensive AI-native textbook on Physical AI, Humanoid Robotics, ROS 2, Gazebo, NVIDIA Isaac, and Vision-Language-Action systems.
+          A modern learning platform where students explore deep technical books on AI, robotics, future technologies, and intelligent systems.
         </p>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
-            to="/docs/introduction">
-            Start Learning →
-          </Link>
-          <Link
             className="button button--primary button--lg"
-            to="/docs/hardware-requirements">
-            Hardware Requirements
+            to="#books">
+            Explore Books
           </Link>
         </div>
       </div>
@@ -36,116 +30,91 @@ function HomepageHeader() {
   );
 }
 
-function Card({ title, description, items, to, buttonLabel }: { title: string, description: string, items: string[], to: string, buttonLabel: string }) {
+function FeatureCard({ icon, title, description }: { icon: string, title: string, description: string }) {
   return (
-    <div className={`col col--4 ${styles.moduleCard}`}>
+    <div className={`col col--4 ${styles.featureCard}`}>
       <div className={styles.card}>
-        <Link to={to}>
-          <h3>{title}</h3>
-        </Link>
+        <div className={styles.icon}>{icon}</div>
+        <h3>{title}</h3>
         <p>{description}</p>
-        <ul>
-          {items.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
       </div>
     </div>
   );
 }
 
-function ModuleCards() {
+function AboutSection() {
   return (
-    <section className={styles.features}>
+    <section className={styles.aboutSection}>
       <div className="container">
         <div className="row">
           <div className="col col--12">
-            <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Course Modules</h2>
+            <h2 className={styles.sectionTitle}>About Neuro Library</h2>
+            <p className={styles.sectionDescription}>
+              Neuro Library is a modern AI-native learning platform where students explore deep technical books on AI, robotics, future technologies, and intelligent systems.
+              Every book is crafted for hands-on learning, real-world applications, and next-generation engineering skills.
+            </p>
+
+            <div className="row" style={{ marginTop: '2rem' }}>
+              <FeatureCard
+                icon="📚"
+                title="AI-Native Textbooks"
+                description="Deep technical content designed for the age of artificial intelligence and intelligent systems."
+              />
+              <FeatureCard
+                icon="🤖"
+                title="Hands-On Learning"
+                description="Practical exercises, simulations, and real-world applications that bring concepts to life."
+              />
+              <FeatureCard
+                icon="🚀"
+                title="Future Technologies"
+                description="Cutting-edge content covering robotics, vision-language-action systems, and emerging AI fields."
+              />
+            </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
 
+
+function BookCard({ title, description, icon, link }: { title: string, description: string, icon: string, link: string }) {
+  return (
+    <div className={`col col--4 ${styles.bookCard}`}>
+      <div className={styles.card}>
+        <div className={styles.icon}>{icon}</div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <Link
+          className="button button--secondary button--block"
+          to={link}>
+          View Details
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function BooksSection() {
+  return (
+    <section className={styles.booksSection} id="books">
+      <div className="container">
         <div className="row">
-          <Card
-            title="Module 1: ROS 2 (Weeks 3-5)"
-            description="Robotic Nervous System – Middleware for Robot Control"
-            items={[
-              "Introduction to ROS 2",
-              "Nodes and Topics",
-              "Services, Actions, and Parameters",
-              "URDF Robot Modeling",
-              "Launch Files and Package Management"
-            ]}
-            to="/docs/module-1-ros2"
-            buttonLabel="Explore Module"
-          />
-
-          <Card
-            title="Module 2: Digital Twin (Weeks 6-7)"
-            description="Physics Simulation & Environment Building"
-            items={[
-              "Introduction to Gazebo & Unity",
-              "Simulating Physics, Gravity, and Collisions",
-              "Sensor Simulation: LiDAR, Depth Cameras, IMUs",
-              "High-fidelity Rendering & Human-Robot Interaction"
-            ]}
-            to="/docs/module-2-digital-twin"
-            buttonLabel="Explore Module"
-          />
-
-          <Card
-            title="Module 3: NVIDIA Isaac (Weeks 8-10)"
-            description="AI-Robot Brain – Advanced Perception and Training"
-            items={[
-              "NVIDIA Isaac Sim Overview",
-              "Hardware-accelerated VSLAM (Isaac ROS)",
-              "Navigation & Path Planning (Nav2)",
-              "AI-powered Perception & Manipulation",
-              "Reinforcement Learning and Sim-to-Real Techniques"
-            ]}
-            to="/docs/module-3-nvidia-isaac"
-            buttonLabel="Explore Module"
-          />
+          <div className="col col--12">
+            <h2 className={styles.sectionTitle}>Our Books</h2>
+            <p className={styles.sectionDescription}>
+              Explore our collection of AI-native technical books designed for the future of technology.
+            </p>
+          </div>
         </div>
 
         <div className="row" style={{ marginTop: '2rem' }}>
-          <Card
-            title="Module 4: VLA & Humanoids (Weeks 11-13)"
-            description="Convergence of LLMs and Robotics"
-            items={[
-              "Humanoid Robot Development (Kinematics, Dynamics, Bipedal Locomotion)",
-              "Manipulation and Grasping with Humanoid Hands",
-              "Natural Human-Robot Interaction Design",
-              "Conversational Robotics (GPT Integration, Whisper Voice-to-Action, Multi-modal Interaction)",
-              "Capstone Project: Autonomous Humanoid"
-            ]}
-            to="/docs/module-4-vla-humanoids"
-            buttonLabel="Explore Module"
-          />
-
-          <div className="col col--4">
-            <div className={`${styles.card} ${styles.learningOutcomes}`}>
-              <h3>Learning Outcomes</h3>
-              <ul>
-                <li>Master ROS 2 for humanoid robot control</li>
-                <li>Build digital twins with Gazebo and Unity</li>
-                <li>Implement AI-powered perception and navigation</li>
-                <li>Develop vision-language-action systems</li>
-                <li>Create conversational robotics applications</li>
-              </ul>
-            </div>
-          </div>
-
-          <Card
-            title="Hardware Requirements"
-            description="Essential setup for learning and development"
-            items={[
-              "High-performance workstation: RTX 4070 Ti+ GPU, Intel i7/AMD Ryzen 9 CPU, 64GB RAM, Ubuntu 22.04",
-              "Physical AI Edge Kit: Jetson Orin Nano/NX, RealSense camera, USB IMU, ReSpeaker mic array",
-              "Robot Lab options: Proxy Approach, Miniature Humanoid, Premium Lab",
-              "Cloud/Hybrid lab options: AWS/Azure NVIDIA Isaac Sim cloud"
-            ]}
-            to="/docs/hardware-requirements"
-            buttonLabel="View Requirements"
+          <BookCard
+            title="Physical AI & Humanoid Robotics"
+            description="A comprehensive AI-native textbook covering ROS 2, Gazebo, NVIDIA Isaac, and Vision-Language-Action systems."
+            icon="🤖"
+            link="/book-details"
           />
         </div>
       </div>
@@ -153,23 +122,36 @@ function ModuleCards() {
   );
 }
 
-function CapstoneProject() {
+
+function WhyLearnHere() {
   return (
-    <section className={styles.capstone}>
-      <div className="container padding-vert--lg">
+    <section>
+      <div className="container">
         <div className="row">
           <div className="col col--12">
-            <h2 style={{ textAlign: 'center' }}>Capstone Project: Autonomous Humanoid Robot</h2>
-            <p style={{ textAlign: 'center', fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
-              Integrate all concepts learned across the four modules to create an autonomous humanoid robot capable of
-              voice commands, path planning, object identification, and manipulation in both simulation and real-world environments.
-            </p>
-            <div className="text--center padding-vert--md">
-              <Link
-                className="button button--primary button--lg"
-                to="/docs/capstone">
-                Explore Capstone Project
-              </Link>
+            <h2 className={styles.sectionTitle}>Why Learn Here?</h2>
+          </div>
+        </div>
+
+        <div className="row" style={{ marginTop: '2rem' }}>
+          <div className={`col col--4 ${styles.cardbody}`}>
+            <div className={styles.card}>
+              <h3>AI-Native Approach</h3>
+              <p>Content designed from the ground up for modern AI technologies and methodologies.</p>
+            </div>
+          </div>
+
+          <div className={`col col--4 ${styles.benefitCard}`}>
+            <div className={styles.card}>
+              <h3>Hands-On Simulations</h3>
+              <p>Integrate theory with practice through interactive simulations and real robotics pipelines.</p>
+            </div>
+          </div>
+
+          <div className={`col col--4 ${styles.benefitCard}`}>
+            <div className={styles.card}>
+              <h3>Real Robotics Pipelines</h3>
+              <p>Experience actual robotic systems with cutting-edge hardware and software stacks.</p>
             </div>
           </div>
         </div>
@@ -177,17 +159,21 @@ function CapstoneProject() {
     </section>
   );
 }
+
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={siteConfig.title}
-      description="A comprehensive AI-native textbook on Physical AI, Humanoid Robotics, ROS 2, Gazebo, NVIDIA Isaac, and Vision-Language-Action systems">
+      title={`Neuro Library - ${siteConfig.tagline}`}
+      description="Modern AI-native technical textbooks for robotics, AI, and future technologies">
       <HomepageHeader />
       <main>
-        <ModuleCards />
-        <CapstoneProject />
+        <AboutSection />
+        <hr />
+        <BooksSection />
+        <hr />
+        <WhyLearnHere />
       </main>
     </Layout>
   );

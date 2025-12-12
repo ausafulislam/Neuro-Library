@@ -90,6 +90,11 @@ const config: Config = {
           position: 'left',
           label: 'Textbook',
         },
+        // {
+        //   to: '/book-details',
+        //   label: 'Explore',
+        //   position: 'left',
+        // },
         {
           type: 'search',
           position: 'right',
