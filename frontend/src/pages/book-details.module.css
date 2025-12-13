@@ -47,7 +47,7 @@
 
 /* Card Styles */
 .card {
-  background-color: var(--bg-primary);
+  background-color: white;
   border-radius: var(--ifm-global-radius);
   box-shadow: 0 4px 6px rgba(13, 14, 16, 0.05);
   padding: 1.5rem;

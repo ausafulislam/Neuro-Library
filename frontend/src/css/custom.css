@@ -7,7 +7,6 @@
 @import "./navbar-styles.css";
 @import "./footer-styles.css";
 @import "./button-styles.css";
-@import "./card-styles.css";
 @import "./typography-styles.css";
 @import "./form-styles.css";
 @import "../components/SearchBar/index.module.css";

@@ -85,10 +85,11 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'textbookSidebar',
+          // type: 'docSidebar',
+          // sidebarId: 'textbookSidebar',
+          to: '/#books',
           position: 'left',
-          label: 'Textbook',
+          label: 'Explore Books',
         },
         // {
         //   to: '/book-details',
