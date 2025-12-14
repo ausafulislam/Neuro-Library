@@ -47,7 +47,6 @@ def get_all_urls(sitemap_url):
 
 # download page from sitemap urls and extracct the extract text
 
-
 def extract_text_from_url(url):
     html = requests.get(url).text
     text = trafilatura.extract(html)
