@@ -6,6 +6,7 @@ import Layout from "@theme/Layout";
 import Heading from "@theme/Heading";
 
 import styles from "./index.module.css";
+import NeuroBot from "../components/NeuroBot/NeuroBot";
 
 function HomepageHeader() {
   return (
@@ -157,6 +158,7 @@ export default function Home(): ReactNode {
     >
       <HomepageHeader />
       <main>
+        <NeuroBot />
         <AboutSection />
         <hr />
         <BooksSection />

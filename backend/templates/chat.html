@@ -78,6 +78,8 @@
         padding: 12px 16px;
         border-radius: 18px;
         line-height: 1.4;
+        word-wrap: break-word;
+        animation: fadeIn 0.3s ease-in;
       }
 
       .user-message {
@@ -151,6 +153,11 @@
         font-size: 18px;
       }
 
+      .send-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
       @keyframes bounce {
         0%,
         80%,
@@ -160,6 +167,21 @@
         40% {
           transform: scale(1);
         }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .streaming {
+        border-left: 3px solid #667eea;
       }
     </style>
   </head>
@@ -188,8 +210,9 @@
             id="messageInput"
             placeholder="Type your question..."
             required
+            autocomplete="off"
           />
-          <button type="submit" class="send-btn">➤</button>
+          <button type="submit" class="send-btn" id="sendBtn">➤</button>
         </form>
       </div>
     </div>
@@ -198,6 +221,7 @@
       const chatForm = document.getElementById("chatForm");
       const messageInput = document.getElementById("messageInput");
       const chatMessages = document.getElementById("chatMessages");
+      const sendBtn = document.getElementById("sendBtn");
 
       chatForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -205,65 +229,75 @@
         const message = messageInput.value.trim();
         if (!message) return;
 
+        // Disable form during streaming
+        messageInput.disabled = true;
+        sendBtn.disabled = true;
+
         // Add user message
-        const userMessage = document.createElement("div");
-        userMessage.className = "message user-message";
-        userMessage.textContent = message;
-        chatMessages.appendChild(userMessage);
-
+        addMessage(message, "user");
         messageInput.value = "";
-        scrollToBottom();
 
-        // Show loading
-        const loadingDiv = document.createElement("div");
-        loadingDiv.className = "message bot-message loading";
-        loadingDiv.innerHTML = "<span></span><span></span><span></span>";
-        chatMessages.appendChild(loadingDiv);
-        scrollToBottom();
+        // Create bot message container for streaming
+        const botMessageDiv = document.createElement("div");
+        botMessageDiv.className = "message bot-message streaming";
+        chatMessages.appendChild(botMessageDiv);
+
+        let eventSource = null;
 
         try {
-          // Send to server
-          const response = await fetch("/chat", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: `message=${encodeURIComponent(message)}`,
-          });
+          // Start streaming
+          eventSource = new EventSource(
+            `/chat-stream?message=${encodeURIComponent(message)}`
+          );
 
-          const data = await response.json();
+          eventSource.onmessage = (event) => {
+            if (event.data === "[DONE]") {
+              eventSource.close();
+              botMessageDiv.classList.remove("streaming");
+              enableForm();
+            } else {
+              // Add each word with space
+              botMessageDiv.textContent += event.data + " ";
+              scrollToBottom();
+            }
+          };
 
-          // Remove loading
-          loadingDiv.remove();
-
-          // Add bot response
-          if (data.response) {
-            const botMessage = document.createElement("div");
-            botMessage.className = "message bot-message";
-
-            // Format the response
-            let formattedText = data.response
-              .replace(/\n/g, "<br>")
-              .replace(
-                /\[([^\]]+)\]\(([^)]+)\)/g,
-                '<a href="$2" target="_blank" style="color: #667eea; text-decoration: underline;">$1</a>'
-              );
-
-            botMessage.innerHTML = formattedText;
-            chatMessages.appendChild(botMessage);
-          }
+          eventSource.onerror = (error) => {
+            console.error("EventSource error:", error);
+            eventSource.close();
+            
+            if (!botMessageDiv.textContent.trim()) {
+              botMessageDiv.textContent = 
+                "Sorry, I encountered an error. Please try again.";
+            }
+            
+            botMessageDiv.classList.remove("streaming");
+            enableForm();
+          };
         } catch (error) {
-          loadingDiv.remove();
-          const errorMessage = document.createElement("div");
-          errorMessage.className = "message bot-message";
-          errorMessage.textContent =
+          console.error("Error:", error);
+          botMessageDiv.textContent = 
             "Sorry, there was an error. Please try again.";
-          chatMessages.appendChild(errorMessage);
+          botMessageDiv.classList.remove("streaming");
+          enableForm();
         }
 
         scrollToBottom();
-        messageInput.focus();
       });
+
+      function addMessage(text, sender) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message ${sender}-message`;
+        messageDiv.textContent = text;
+        chatMessages.appendChild(messageDiv);
+        return messageDiv;
+      }
+
+      function enableForm() {
+        messageInput.disabled = false;
+        sendBtn.disabled = false;
+        messageInput.focus();
+      }
 
       function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -278,6 +312,11 @@
           e.preventDefault();
           chatForm.dispatchEvent(new Event("submit"));
         }
+      });
+
+      // Auto-focus on input
+      messageInput.addEventListener("blur", () => {
+        setTimeout(() => messageInput.focus(), 100);
       });
     </script>
   </body>

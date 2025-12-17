@@ -3,6 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+require('dotenv').config(); // Load environment variables
 
 const config: Config = {
   title: 'Neuro Library',
@@ -33,6 +34,10 @@ const config: Config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+
+  customFields: {
+    neuroBot_api_key: process.env.NEURO_BOT_API_URL,
   },
 
   presets: [
