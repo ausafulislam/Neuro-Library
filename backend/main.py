@@ -1,138 +1,139 @@
-import requests
 import os
-from dotenv import load_dotenv
-import xml.etree.ElementTree as ET
-import trafilatura
+import uuid
+import requests
+from bs4 import BeautifulSoup
+from fastapi import FastAPI
+from pydantic import BaseModel
+from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct
-import cohere
+from dotenv import load_dotenv
 
-
-# Enviroment variables setup
+# load env
 load_dotenv()
-sitemap_url = os.getenv("SITEMAP_URL")
-collection_name = os.getenv("COLLECTION_NAME")
 
-# qdrant cloud
-qdrant_url = os.getenv("QDRANT_URL")
-qdrant_api_key = os.getenv("QDRANT_API_KEY")
+SITEMAP_URL = os.getenv("SITEMAP_URL")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")
+QDRANT_URL = os.getenv("QDRANT_URL")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
-# cohere embedding
-cohere_api_key = os.getenv("COHERE_API_KEY")
-cohere_embed_model = os.getenv("COHERE_EMBED_MODLE")
+EMBED_MODEL = "all-MiniLM-L6-v2"
 
-cohere_client = cohere.Client("key-here")
+# app
+app = FastAPI(title="Neuro Library RAG")
 
-# Connect to Qdrant Cloud
-qdrant = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
+# load embedding model
+print("Loading embedding model...")
+embedder = SentenceTransformer(EMBED_MODEL)
+VECTOR_SIZE = embedder.get_sentence_embedding_dimension()
+print(f"Embedding model loaded, vector size {VECTOR_SIZE}")
+
+# connect qdrant
+print("Connecting to Qdrant...")
+qdrant = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
+
+qdrant.recreate_collection(
+    collection_name=COLLECTION_NAME,
+    vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
+)
+
+print("Qdrant collection ready")
 
 
-# extracting urls from sitemap
-def get_all_urls(sitemap_url):
-    xml = requests.get(sitemap_url).text
-    root = ET.fromstring(xml)
-
-    urls = []
-    for child in root:
-        loc_tag = child.find("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
-        if loc_tag is not None:
-            urls.append(loc_tag.text)
-
-    print("\nFOUND URLS:")
-    for u in urls:
-        print(" -", u)
-
+# fetch urls from sitemap
+def fetch_sitemap_urls():
+    print(f"Fetching sitemap {SITEMAP_URL}")
+    xml = requests.get(SITEMAP_URL, timeout=30).text
+    soup = BeautifulSoup(xml, "xml")
+    urls = [loc.text for loc in soup.find_all("loc")]
+    print(f"Found {len(urls)} urls")
     return urls
 
 
-# download page from sitemap urls and extracct the extract text
-
-def extract_text_from_url(url):
-    html = requests.get(url).text
-    text = trafilatura.extract(html)
-
-    if not text:
-        print("[WARNING] No text extracted from:", url)
-
-    return text
+# fetch page content
+def fetch_page_text(url):
+    html = requests.get(url, timeout=30).text
+    soup = BeautifulSoup(html, "html.parser")
+    main = soup.find("main") or soup.body
+    return main.get_text(" ", strip=True) if main else ""
 
 
-# Chunk the text
+# split text into chunks
+def chunk_text(text, chunk_size=300):
+    words = text.split()
+    for i in range(0, len(words), chunk_size):
+        yield " ".join(words[i : i + chunk_size])
 
 
-def chunk_text(text, max_chars=1200):
-    chunks = []
-    while len(text) > max_chars:
-        split_pos = text[:max_chars].rfind(". ")
-        if split_pos == -1:
-            split_pos = max_chars
-        chunks.append(text[:split_pos])
-        text = text[split_pos:]
-    chunks.append(text)
-    return chunks
+# ingest website into qdrant
+def ingest_site():
+    print("Starting ingestion")
+    urls = fetch_sitemap_urls()
+    total_chunks = 0
+    points = []
 
-
-# Create embedding
-def embed(text):
-    response = cohere_client.embed(
-        model=cohere_embed_model,
-        input_type="search_query",  # Use search_query for queries
-        texts=[text],
-    )
-    return response.embeddings[0]  # Return the first embedding
-
-
-# storing embedded data in Qdrant Cloud
-def create_collection():
-    print("\nCreating Qdrant collection...")
-    qdrant.recreate_collection(
-        collection_name=collection_name,
-        vectors_config=VectorParams(
-            size=1024, distance=Distance.COSINE  # Cohere embed-english-v3.0 dimension
-        ),
-    )
-
-
-def save_chunk_to_qdrant(chunk, chunk_id, url):
-    vector = embed(chunk)
-
-    qdrant.upsert(
-        collection_name=collection_name,
-        points=[
-            PointStruct(
-                id=chunk_id,
-                vector=vector,
-                payload={"url": url, "text": chunk, "chunk_id": chunk_id},
-            )
-        ],
-    )
-
-
-# MAIN INGESTION PIPELINE
-def ingest_book():
-    urls = get_all_urls(sitemap_url)
-
-    create_collection()
-
-    global_id = 1
-
-    for url in urls:
-        print("\nProcessing:", url)
-        text = extract_text_from_url(url)
+    for idx, url in enumerate(urls, start=1):
+        print(f"Processing {idx}/{len(urls)} -> {url}")
+        text = fetch_page_text(url)
 
         if not text:
+            print("No content found, skipping")
             continue
 
-        chunks = chunk_text(text)
+        for chunk in chunk_text(text):
+            vector = embedder.encode(chunk).tolist()
+            points.append(
+                PointStruct(
+                    id=str(uuid.uuid4()),
+                    vector=vector,
+                    payload={"text": chunk, "source": url},
+                )
+            )
+            total_chunks += 1
 
-        for ch in chunks:
-            save_chunk_to_qdrant(ch, global_id, url)
-            print(f"Saved chunk {global_id}")
-            global_id += 1
+        print(f"Chunks embedded so far {total_chunks}")
 
-    print("\n✔️ Ingestion completed!")
-    print("Total chunks stored:", global_id - 1)
+    if points:
+        print("Uploading vectors to Qdrant")
+        qdrant.upsert(collection_name=COLLECTION_NAME, points=points)
+
+    print("Ingestion completed")
+    print(f"Total pages {len(urls)}")
+    print(f"Total chunks {total_chunks}")
 
 
-if __name__ == "__main__":
-    ingest_book()
+# run ingestion on startup
+@app.on_event("startup")
+def startup():
+    ingest_site()
+
+
+# request model
+class Query(BaseModel):
+    question: str
+
+
+# health check
+@app.get("/")
+def health():
+    return {"status": "RAG server running"}
+
+
+# ask endpoint
+@app.post("/ask")
+def ask(query: Query):
+    print(f"User question: {query.question}")
+
+    vector = embedder.encode(query.question).tolist()
+    results = qdrant.query_points(
+        collection_name=COLLECTION_NAME,
+        query=vector,
+        limit=5,
+    ).points
+
+    context = "\n".join(r.payload["text"] for r in results)
+    sources = list(set(r.payload["source"] for r in results))
+
+    print(f"Returned {len(results)} chunks")
+
+    return {"context": context, "sources": sources}

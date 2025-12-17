@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neuro Library Assistant</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .chat-container {
+        width: 400px;
+        height: 600px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .chat-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .bot-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .header-text h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .header-text p {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .message {
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        line-height: 1.4;
+      }
+
+      .user-message {
+        align-self: flex-end;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-bottom-right-radius: 5px;
+      }
+
+      .bot-message {
+        align-self: flex-start;
+        background: white;
+        color: #333;
+        border: 1px solid #e2e8f0;
+        border-bottom-left-radius: 5px;
+      }
+
+      .loading {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .loading span {
+        width: 8px;
+        height: 8px;
+        background: #667eea;
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
+
+      .loading span:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      .loading span:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+
+      .chat-input-container {
+        padding: 15px;
+        background: white;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .chat-form {
+        display: flex;
+        gap: 10px;
+      }
+
+      .chat-input {
+        flex: 1;
+        padding: 12px 18px;
+        border: 2px solid #e2e8f0;
+        border-radius: 25px;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .chat-input:focus {
+        border-color: #667eea;
+      }
+
+      .send-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="bot-avatar">🧠</div>
+        <div class="header-text">
+          <h3>Neuro Library Assistant</h3>
+          <p>Ask me about AI research & papers</p>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">
+          Hello! I'm your Neuro Library assistant. How can I help you with AI
+          research today?
+        </div>
+      </div>
+
+      <div class="chat-input-container">
+        <form class="chat-form" id="chatForm">
+          <input
+            type="text"
+            class="chat-input"
+            id="messageInput"
+            placeholder="Type your question..."
+            required
+          />
+          <button type="submit" class="send-btn">➤</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const chatForm = document.getElementById("chatForm");
+      const messageInput = document.getElementById("messageInput");
+      const chatMessages = document.getElementById("chatMessages");
+
+      chatForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        // Add user message
+        const userMessage = document.createElement("div");
+        userMessage.className = "message user-message";
+        userMessage.textContent = message;
+        chatMessages.appendChild(userMessage);
+
+        messageInput.value = "";
+        scrollToBottom();
+
+        // Show loading
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "message bot-message loading";
+        loadingDiv.innerHTML = "<span></span><span></span><span></span>";
+        chatMessages.appendChild(loadingDiv);
+        scrollToBottom();
+
+        try {
+          // Send to server
+          const response = await fetch("/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `message=${encodeURIComponent(message)}`,
+          });
+
+          const data = await response.json();
+
+          // Remove loading
+          loadingDiv.remove();
+
+          // Add bot response
+          if (data.response) {
+            const botMessage = document.createElement("div");
+            botMessage.className = "message bot-message";
+
+            // Format the response
+            let formattedText = data.response
+              .replace(/\n/g, "<br>")
+              .replace(
+                /\[([^\]]+)\]\(([^)]+)\)/g,
+                '<a href="$2" target="_blank" style="color: #667eea; text-decoration: underline;">$1</a>'
+              );
+
+            botMessage.innerHTML = formattedText;
+            chatMessages.appendChild(botMessage);
+          }
+        } catch (error) {
+          loadingDiv.remove();
+          const errorMessage = document.createElement("div");
+          errorMessage.className = "message bot-message";
+          errorMessage.textContent =
+            "Sorry, there was an error. Please try again.";
+          chatMessages.appendChild(errorMessage);
+        }
+
+        scrollToBottom();
+        messageInput.focus();
+      });
+
+      function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Focus input on load
+      messageInput.focus();
+
+      // Send on Enter
+      messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          chatForm.dispatchEvent(new Event("submit"));
+        }
+      });
+    </script>
+  </body>
+</html>
