@@ -128,7 +128,7 @@ def ask(query: Query):
     results = qdrant.query_points(
         collection_name=COLLECTION_NAME,
         query=vector,
-        limit=5,
+        limit=5, 
     ).points
 
     context = "\n".join(r.payload["text"] for r in results)
