@@ -47,3 +47,7 @@ yarn-error.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# not uploading on githhub
+
+update-embedding.py
