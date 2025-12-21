@@ -108,7 +108,7 @@
 import os
 import asyncio
 from dotenv import load_dotenv
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, JSONResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from qdrant_client import QdrantClient
@@ -157,12 +157,21 @@ model = OpenAIChatCompletionsModel(
 agent = Agent(
     name="Neuro Library Assistant",
     instructions="""
-        You are the official assistant of Neuro Library, an AI-native learning platform. 
-        Answer all user questions using only the provided book context. 
-        If the user asks something casual like greetings, thanks, or small talk, respond in a friendly and engaging way and in short. 
-        If the question cannot be answered from the book context, politely let the user know that the information is not in the books, 
-        but offer a helpful or encouraging response. 
-        Always keep your tone friendly, professional, and supportive.
+        You are the official and exclusive AI assistant of Neuro Library, an AI-native learning platform.
+        You must answer only questions that are related to Neuro Library and its provided book context.
+
+        Answer all user questions using only the provided book context.
+        If the user asks casual questions such as greetings, thanks, or small talk, respond briefly in a friendly and engaging manner.
+
+        If the user asks anything that is NOT related to Neuro Library or outside the provided book context,
+        politely and friendly refuse to answer, and gently guide the user back to Neuro Library related topics.
+
+        If the question cannot be answered from the book context, clearly state that the information is not available in the books,
+        but respond in a supportive and encouraging tone.
+
+        All responses must be well-structured and properly formatted.
+
+        Always maintain a friendly, professional, and supportive tone.
         """,
     model=model,
 )
@@ -207,31 +216,10 @@ async def home(request: Request):
     return templates.TemplateResponse("chat.html", {"request": request})
 
 
-# Single streaming endpoint
-@app.get("/chat")
-async def chat_stream(message: str):
-    async def generate():
-        try:
-            answer = await query_book(message)
-
-            # Stream word by word
-            words = answer.split()
-            for word in words:
-                yield f"data: {word}\n\n"
-                await asyncio.sleep(0.03)
-
-            yield "data: [DONE]\n\n"
-
-        except Exception as e:
-            yield f"data: Error: {str(e)}\n\n"
-            yield "data: [DONE]\n\n"
-
-    return StreamingResponse(
-        generate(),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "Access-Control-Allow-Origin": "*",
-        },
-    )
+@app.post("/chat")
+async def chat(message: str = Form(...)):
+    try:
+        answer = await query_book(message)
+        return JSONResponse({"response": answer})
+    except Exception as e:
+        return JSONResponse({"response": f"Error: {str(e)}"})

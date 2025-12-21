@@ -96,11 +96,11 @@ const config: Config = {
           position: 'left',
           label: 'Explore Books',
         },
-        // {
-        //   to: '/book-details',
-        //   label: 'Explore',
-        //   position: 'left',
-        // },
+        {
+          to: '/total-books',
+          label: 'All Books',
+          position: 'left',
+        },
         {
           type: 'search',
           position: 'right',

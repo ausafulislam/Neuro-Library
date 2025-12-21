@@ -52,7 +52,7 @@ h6 {
 /* Paragraphs */
 p {
   color: var(--text-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   line-height: 1.7;
 }
 
