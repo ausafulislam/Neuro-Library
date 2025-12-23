@@ -19,7 +19,7 @@ export default function NeuroBot(): JSX.Element {
     const sendSoundRef = useRef<HTMLAudioElement | null>(null);
     const receiveSoundRef = useRef<HTMLAudioElement | null>(null);
     useEffect(() => {
-        sendSoundRef.current = new Audio("/sounds/send.wav");
+        sendSoundRef.current = new Audio("/sounds/send.mp3");
         receiveSoundRef.current = new Audio("/sounds/received.wav");
     }, []);
 
