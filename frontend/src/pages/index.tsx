@@ -15,9 +15,14 @@ function HomepageHeader() {
         <Heading as="h1" className="hero__title">
           Neuro Library
         </Heading>
-        <p className="hero__subtitle">AI Native Technical Books for the Future</p>
+
+        <p className="hero__subtitle">
+          AI Native Technical Books for the Future
+        </p>
+
         <p className={styles.heroDescription}>
-          A modern learning platform where students explore deep technical books on AI, robotics, future technologies, and intelligent systems.
+          A modern learning platform where students explore deep technical books
+          on AI, robotics, future technologies, and intelligent systems.
         </p>
 
         <div className={styles.buttons}>
@@ -32,12 +37,10 @@ function HomepageHeader() {
 
 function FeatureCard({ icon, title, description }) {
   return (
-    <div className={`col col--4 ${styles.featureCard}`}>
-      <div className={styles.card}>
-        <div className={styles.icon}>{icon}</div>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
+    <div className={styles.card}>
+      <div className={styles.icon}>{icon}</div>
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
   );
 }
@@ -47,12 +50,15 @@ function AboutSection() {
     <section className={styles.aboutSection}>
       <div className="container">
         <h2 className={styles.sectionTitle}>About Neuro Library</h2>
+
         <p className={styles.sectionDescription}>
-          Neuro Library is a modern AI native learning platform where students explore deep technical books on AI, robotics, future technologies, and intelligent systems.
-          Every book is created for hands on learning, real world applications, and next generation engineering skills.
+          Neuro Library is a modern AI native learning platform where students
+          explore deep technical books on AI, robotics, future technologies, and
+          intelligent systems. Every book is created for hands on learning, real
+          world applications, and next generation engineering skills.
         </p>
 
-        <div className="row" style={{ marginTop: "2rem" }}>
+        <div className={styles.grid}>
           <FeatureCard
             icon="📚"
             title="AI Native Textbooks"
@@ -78,17 +84,14 @@ function AboutSection() {
 
 function BookCard({ title, description, icon, link }) {
   return (
-    <div className={`col col--4 ${styles.bookCard}`}>
-      <div className={styles.card}>
-        <div className={styles.icon}>{icon}</div>
+    <div className={styles.card}>
+      <div className={styles.icon}>{icon}</div>
+      <h3>{title}</h3>
+      <p>{description}</p>
 
-        <h3>{title}</h3>
-        <p>{description}</p>
-
-        <Link className="button button--secondary button--block" to={link}>
-          View Details
-        </Link>
-      </div>
+      <Link className="button button--secondary button--block" to={link}>
+        View Details
+      </Link>
     </div>
   );
 }
@@ -98,11 +101,13 @@ function BooksSection() {
     <section className={styles.booksSection} id="books">
       <div className="container">
         <h2 className={styles.sectionTitle}>Our Books</h2>
+
         <p className={styles.sectionDescription}>
-          Explore our AI native technical books designed for the future of technology.
+          Explore our AI native technical books designed for the future of
+          technology.
         </p>
 
-        <div className="row" style={{ marginTop: "2rem" }}>
+        <div className={styles.grid}>
           <BookCard
             title="Physical AI and Humanoid Robotics"
             description="A complete textbook that covers ROS 2, Gazebo, NVIDIA Isaac, and Vision Language Action systems."
@@ -121,27 +126,24 @@ function WhyLearnHere() {
       <div className="container">
         <h2 className={styles.sectionTitle}>Why Learn Here?</h2>
 
-        <div className="row" style={{ marginTop: "2rem" }}>
-          <div className="col col--4">
-            <div className={styles.card}>
-              <h3>AI Native Approach</h3>
-              <p>Learn concepts built for modern AI technologies and workflows.</p>
-            </div>
-          </div>
+        <div className={styles.grid}>
+          <FeatureCard
+            icon="🧠"
+            title="AI Native Approach"
+            description="Learn concepts built for modern AI technologies and workflows."
+          />
 
-          <div className="col col--4">
-            <div className={styles.card}>
-              <h3>Hands On Simulations</h3>
-              <p>Integrate theory with practice using real robotics simulations.</p>
-            </div>
-          </div>
+          <FeatureCard
+            icon="⚙️"
+            title="Hands On Simulations"
+            description="Integrate theory with practice using real robotics simulations."
+          />
 
-          <div className="col col--4">
-            <div className={styles.card}>
-              <h3>Industry Focused</h3>
-              <p>Experience the workflows of real intelligent systems engineering.</p>
-            </div>
-          </div>
+          <FeatureCard
+            icon="🏭"
+            title="Industry Focused"
+            description="Experience the workflows of real intelligent systems engineering."
+          />
         </div>
       </div>
     </section>
@@ -160,9 +162,7 @@ export default function Home(): ReactNode {
       <main>
         <NeuroBot />
         <AboutSection />
-        <hr />
         <BooksSection />
-        <hr />
         <WhyLearnHere />
       </main>
     </Layout>

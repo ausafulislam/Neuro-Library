@@ -6,7 +6,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import MarkdownRenderer from "../MarkdownRenderer";
 
 type Message = {
-    role: "user" | "bot";
+    role: "user" | "bot" | "loader";
     text: string;
 };
 
@@ -15,11 +15,19 @@ export default function NeuroBot(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { neuroBot_api_key } = siteConfig.customFields;
 
+    // for sound effect 
+    const sendSoundRef = useRef<HTMLAudioElement | null>(null);
+    const receiveSoundRef = useRef<HTMLAudioElement | null>(null);
+    useEffect(() => {
+        sendSoundRef.current = new Audio("/sounds/send.wav");
+        receiveSoundRef.current = new Audio("/sounds/received.wav");
+    }, []);
+
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
         {
             role: "bot",
-            text: "Hi, I am the Neuro Library assistant. Ask me anything related to books.",
+            text: "Hi, I am Neuro Library assistant. Ask me anything related to books.",
         },
     ]);
     const [input, setInput] = useState<string>("");
@@ -43,43 +51,47 @@ export default function NeuroBot(): JSX.Element {
         if (!input.trim() || loading) return;
 
         const userMessage: Message = { role: "user", text: input };
-        setMessages((prev) => [...prev, userMessage]);
+        setMessages(prev => [...prev, userMessage]);
+
+        sendSoundRef.current?.play();
+
         setInput("");
         setLoading(true);
 
-        try {
-            const apiUrl = neuroBot_api_key as string;
+        // show dotted loader
+        setMessages(prev => [
+            ...prev,
+            { role: "loader", text: "" }
+        ]);
 
-            // Send POST request to your FastAPI endpoint
-            const response = await fetch(apiUrl, {
+        try {
+            const response = await fetch(neuroBot_api_key as string, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams({
-                    message: userMessage.text,
-                }),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({ message: userMessage.text }),
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
             const data = await response.json();
 
-            const botMessage: Message = {
-                role: "bot",
-                text: data.response
-            };
-            setMessages((prev) => [...prev, botMessage]);
+            // remove loader, add bot response
+            setMessages(prev =>
+                prev.filter(m => m.role !== "loader").concat({
+                    role: "bot",
+                    text: data.response,
+                })
+            );
 
-        } catch (error) {
-            console.error("Error sending message:", error);
-            const errorMessage: Message = {
-                role: "bot",
-                text: `Sorry, I encountered an error: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`
-            };
-            setMessages((prev) => [...prev, errorMessage]);
+            receiveSoundRef.current?.play();
+
+        } catch (err) {
+            setMessages(prev =>
+                prev.filter(m => m.role !== "loader").concat({
+                    role: "bot",
+                    text: "Sorry, something went wrong. Please try again.",
+                })
+            );
         } finally {
             setLoading(false);
         }
@@ -107,22 +119,38 @@ export default function NeuroBot(): JSX.Element {
                     </div>
 
                     <div className={styles.chatMessages}>
-                        {messages.map((msg, idx) => (
-                            <div
-                                key={idx}
-                                className={
-                                    msg.role === "user"
-                                        ? styles.userMessage
-                                        : styles.botMessage
-                                }
-                            >
-                                {msg.role === "user" ? (
-                                    msg.text
-                                ) : (
-                                    <MarkdownRenderer children={msg.text.replace(/(\[.*?\])/g, "$1\n")} />
-                                )}
-                            </div>
-                        ))}
+                        {messages.map((msg, idx) => {
+                            // Loader message
+                            if (msg.role === "loader") {
+                                return (
+                                    <div key={idx} className={styles.botMessage}>
+                                        <div className={styles.loader}></div>
+                                    </div>
+                                );
+                            }
+
+                            return (
+                                <div
+                                    key={idx}
+                                    className={
+                                        msg.role === "user"
+                                            ? styles.userMessage
+                                            : styles.botMessage
+                                    }
+                                >
+                                    {msg.role === "user" ? (
+                                        msg.text
+                                    ) : (
+                                        <MarkdownRenderer
+                                            children={msg.text
+                                                .replace(/(\[.*?\])/g, "$1\n")
+                                                .replace(/(\r?\n)+/g, "\n")}
+                                        />
+                                    )}
+                                </div>
+                            );
+                        })}
+
                         <div ref={messagesEndRef} />
                     </div>
 
@@ -139,9 +167,13 @@ export default function NeuroBot(): JSX.Element {
                             {loading ? "..." : "Send"}
                         </button>
                     </form>
-                    <p className={styles.footer}>AI-generated, for reference only</p>
+
+                    <p className={styles.footer}>
+                        AI-generated, for reference only
+                    </p>
                 </div>
             )}
         </>
     );
+
 }
