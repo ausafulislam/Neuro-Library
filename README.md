@@ -3,6 +3,11 @@
 <div align="center">
 
 [![Neuro Library Logo](./frontend/static/img/logo.png)](https://neurolibrary.vercel.app)
+
+</div>
+
+<div align="center">
+
 [![License](https://img.shields.io/github/license/ausafulislam/neuro-library)](LICENSE) [![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)](https://www.python.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/) [![FastAPI](https://img.shields.io/badge/FastAPI-0.116+-green?logo=fastapi)](https://fastapi.tiangolo.com/) [![Docusaurus](https://img.shields.io/badge/Docusaurus-3.x-informational?logo=docusaurus)](https://docusaurus.io/) [![Qdrant](https://img.shields.io/badge/Qdrant-Vector_DB-red)](https://qdrant.tech/) [![Status](https://img.shields.io/badge/Status-Active-success)](https://github.com/ausafulislam/neuro-library)
 
 </div>
