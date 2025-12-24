@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Neuro Library Logo](./frontend/static/img/logo.png)](https://neurolibrary.vercel.app)
+[![Neuro Library Logo](./frontend/static/img/favicon.ico)](https://neurolibrary.vercel.app)
 
 </div>
 
