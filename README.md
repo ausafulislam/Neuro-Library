@@ -1,9 +1,7 @@
 # Neuro Library
 
 <div align="center">
-
 <img src="./frontend/static/img/logo.png" alt="Neuro Library Logo" width="500" height="450">
-
 </div>
 
 <div align="center">
