@@ -211,11 +211,6 @@ async def query_book(question: str) -> str:
     return result.final_output
 
 
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    return templates.TemplateResponse("chat.html", {"request": request})
-
-
 @app.post("/chat")
 async def chat(message: str = Form(...)):
     try:

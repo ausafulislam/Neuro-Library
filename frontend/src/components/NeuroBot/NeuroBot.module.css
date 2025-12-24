@@ -102,6 +102,7 @@
   width: 90vw;
   max-width: 50rem;
   height: 90vh;
+  max-height: 40rem;
   background: var(--ifm-background-surface-color);
   border-radius: 0.75rem;
   border: 0.0625rem solid var(--ifm-color-emphasis-300);
@@ -497,12 +498,6 @@
 /* Responsive Design */
 /* Tablet portrait */
 @media (max-width: 768px) {
-  .chatPanel {
-    width: 95vw;
-    height: 85vh;
-    bottom: 0.9375rem;
-    right: 0.9375rem;
-  }
 
   .userMessage,
   .botMessage {
@@ -520,11 +515,8 @@
 /* Mobile devices */
 @media (max-width: 480px) {
   .chatPanel {
-    width: 100vw;
-    height: 99.99vh;
-    bottom: 0;
-    right: 0;
-    border-radius: 0;
+    bottom: .7rem;
+    right: .5rem;
   }
 
   .chatHeader {
