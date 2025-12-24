@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Neuro Library Logo](./frontend/static/img/logo.png)](https://neurolibrary.vercel.app)
+<img src="./frontend/static/img/logo.png" alt="Neuro Library Logo" width="500" height="450">
 
 </div>
 
